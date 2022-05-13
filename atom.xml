@@ -23,7 +23,7 @@
     <published>2022-05-13T07:21:22.000Z</published>
     <updated>2022-05-13T09:01:32.185Z</updated>
     
-    <content type="html"><![CDATA[<p>我们都知道判断是否安装某个app的方法是：</p><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] canOpenURL:[<span class="built_in">NSURL</span> URLWithString:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;%@://&quot;</span>, xx]]]</span><br><span class="line"><span class="comment">// xx是目标app的scheme</span></span><br><span class="line"><span class="comment">// 返回true，说明目标app已安装</span></span><br></pre></td></tr></table></figure><p>在iOS9+下，需要在<code>info.plist</code>里面配置<code>LSApplicationQueriesSchemes</code>目标app的scheme，比如配置微信、qq等app的scheme：</p><p><img src="/.io//Untitled.png" alt="Untitled"></p><p>ok，等我配置好后满怀期待的验证后发现iOS15以下系统是没问题的，iOS15下这个判断不生效</p><p><img src="/.io//Untitled%201.png" alt="Untitled"></p><p>后来历经千辛万苦（1小时）才发现，**<code>在iOS 15系统上，使用Xcode 13编译出的App，LSApplicationQueriesSchemes的数量会限制为50个</code>，**超过50个之后配置的scheme<code>代码1</code>  返回的都是false。</p>]]></content>
+    <content type="html"><![CDATA[<p>我们都知道判断是否安装某个app的方法是：</p><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">UIApplication</span> sharedApplication] canOpenURL:[<span class="built_in">NSURL</span> URLWithString:[<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;%@://&quot;</span>, xx]]]</span><br><span class="line"><span class="comment">// xx是目标app的scheme</span></span><br><span class="line"><span class="comment">// 返回true，说明目标app已安装</span></span><br></pre></td></tr></table></figure><p>在iOS9+下，需要在<code>info.plist</code>里面配置<code>LSApplicationQueriesSchemes</code>目标app的scheme，比如配置微信、qq等app的scheme：</p><p><img src="/2022/05/13/iOS15%E4%B8%8B%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%9F%90%E4%B8%AAapp%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/./iOS15%E4%B8%8B%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%9F%90%E4%B8%AAapp%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/Untitled.png" alt="Untitled"></p><p>ok，等我配置好后满怀期待的验证后发现iOS15以下系统是没问题的，iOS15下这个判断不生效</p><p><img src="/2022/05/13/iOS15%E4%B8%8B%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%AE%89%E8%A3%85%E6%9F%90%E4%B8%AAapp%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/Untitled%201.png" alt="Untitled"></p><p>后来历经千辛万苦（1小时）才发现，**<code>在iOS 15系统上，使用Xcode 13编译出的App，LSApplicationQueriesSchemes的数量会限制为50个</code>，**超过50个之后配置的scheme<code>代码1</code>  返回的都是false。</p>]]></content>
     
     
       
@@ -44,15 +44,13 @@
     <published>2021-08-14T13:49:22.000Z</published>
     <updated>2021-08-14T14:40:02.913Z</updated>
     
-    <content type="html"><![CDATA[<p>图文混排在移动端的UI中是很常见的，那么在flutter中比如这种UI是如何实现的呢：</p><img src="/images/flutter_图文混排.png" width="50%" height="50%" align="center/"><p>图中可以看出这个不仅仅是图文混排，而是自定义view和文字的混排，这种场景在原生端比如ios端就想到放两个控件一个自定义<code>view</code>和<code>UILabel</code>控件，然后后根据第一个<code>view</code>的宽度设置<code>label</code>的首行缩进长度来实现这种效果，实现起来并不优雅，那么这种在flutter中有个非常方便的实现<code>RichText</code>组件：</p><img src="/images/flutter_richtext.png"><p>是不是感觉实现起来很优雅很easy~</p>]]></content>
+    <content type="html"><![CDATA[<p>图文混排在移动端的UI中是很常见的，那么在flutter中比如这种UI是如何实现的呢：</p><img src="/2021/08/14/flutter%E4%B8%AD%E5%9B%BE%E6%96%87%E6%B7%B7%E6%8E%92/images/flutter_图文混排.png" width="50%" height="50%" align="center/"><p>图中可以看出这个不仅仅是图文混排，而是自定义view和文字的混排，这种场景在原生端比如ios端就想到放两个控件一个自定义<code>view</code>和<code>UILabel</code>控件，然后后根据第一个<code>view</code>的宽度设置<code>label</code>的首行缩进长度来实现这种效果，实现起来并不优雅，那么这种在flutter中有个非常方便的实现<code>RichText</code>组件：</p><img src="/2021/08/14/flutter%E4%B8%AD%E5%9B%BE%E6%96%87%E6%B7%B7%E6%8E%92/images/flutter_richtext.png"><p>是不是感觉实现起来很优雅很easy~</p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;图文混排在移动端的UI中是很常见的，那么在flutter中比如这种UI是如何实现的呢：&lt;/p&gt;
-&lt;img src=&quot;/images/flutter_图文混排.png&quot; width=&quot;50%&quot; height=&quot;50%&quot; align=&quot;center/&quot;&gt;
-
-&lt;p&gt;图中可以看出这</summary>
+&lt;img src=&quot;/2021/08/14/flutter%E4%B8%AD%E5%9B%BE%E6%96%87%E6%B7%B7%E6%8E%92/images/flutter</summary>
       
     
     
